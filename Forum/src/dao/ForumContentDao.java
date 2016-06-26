@@ -53,6 +53,7 @@ public class ForumContentDao {
 			return fc;
 		}
 		
+		fc.setLastReply(Tools.getServerTime());
 		
 		MongoDBConnector.datastore.save(fc);
 		ObjectId id =fc.getId();
@@ -180,6 +181,7 @@ public class ForumContentDao {
 		
 		ops.set("content", fc.getContent());
 		ops.set("contentList", fc.getContentList()==null?new ArrayList<Content>():fc.getContentList());
+		ops.set("lastReply", Tools.getServerTime());
 		
 		MongoDBConnector.datastore.update(updateQuery, ops,true);
 		

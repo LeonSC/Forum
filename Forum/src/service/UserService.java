@@ -111,6 +111,7 @@ public class UserService {
 			User us=new User();
 			
 			us.setUsername(email);
+			us.setNickname(email);
 			us.setPw(pw);
 			us.setLv(1);
 			
