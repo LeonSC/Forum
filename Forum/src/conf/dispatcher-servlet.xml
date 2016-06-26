@@ -40,14 +40,13 @@
 			<bean class="interceptor.AdminInterceptor"/>  
 		</mvc:interceptor>  
 	</mvc:interceptors>
-	<!-- 
+
 	<mvc:interceptors>    
 		<mvc:interceptor>  
 			<mvc:mapping path="/personal/**"/> 
-			<bean class="com.cedar.interceptor.PersonalInterceptor"/>  
+			<bean class="interceptor.PersonalInterceptor"/>  
 		</mvc:interceptor>  
 	</mvc:interceptors>
-	 -->
 	
 	<mvc:interceptors>    
 		<mvc:interceptor>  
