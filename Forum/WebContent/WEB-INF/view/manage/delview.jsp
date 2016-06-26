@@ -4,10 +4,10 @@
 <jsp:useBean id="timeValues" class="java.util.Date"/>
 <!DOCTYPE html>
 <html>
-<%@ include file="static/header.jsp" %>
+<%@ include file="../static/header.jsp" %>
 <body>
 <div class="container">
-	<%@ include file="titleline.jsp" %>
+	<%@ include file="../titleline.jsp" %>
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
@@ -78,6 +78,6 @@
 	</div>
 	</c:forEach>
 </div>
-<%@ include file="static/footer.jsp" %>
+<%@ include file="../static/footer.jsp" %>
 </body>
 </html>

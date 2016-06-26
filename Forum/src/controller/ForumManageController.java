@@ -97,7 +97,7 @@ public class ForumManageController {
 		
 		request.setAttribute("page", this.forumContentService.getRecycleForumContentList("root",u.getBM_ID(), page));
 		
-		return "recycle";
+		return "manage/recycle";
 	}
 	
 	
@@ -158,7 +158,7 @@ public class ForumManageController {
 		request.setAttribute("fc", fc);
 		request.setAttribute("page", this.forumContentService.getForumContentList(topickey, page));
 		
-		return "delview";
+		return "manage/delview";
 	}
 	
 	/**

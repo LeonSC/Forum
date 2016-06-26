@@ -2,10 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<%@ include file="static/header.jsp" %>
+<%@ include file="../static/header.jsp" %>
 <body>
 <div class="container">
-	<%@ include file="titleline.jsp" %>
+	<%@ include file="../titleline.jsp" %>
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
@@ -20,7 +20,7 @@
 	</nav>
 	<div class="row">
 		<div class="col-xs-12">
-			<%@ include file="placetop.jsp" %>
+			<%@ include file="../placetop.jsp" %>
 			<ul class="list-group">
 				<c:forEach var="fc" items="${page.list}" varStatus="index">
 				<li class="list-group-item">${fc.title}
@@ -33,6 +33,6 @@
 		</div>
 	</div>
 </div>
-<%@ include file="static/footer.jsp" %>
+<%@ include file="../static/footer.jsp" %>
 </body>
 </html>
