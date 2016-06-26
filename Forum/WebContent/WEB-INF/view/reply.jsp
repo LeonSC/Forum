@@ -8,10 +8,10 @@
 <body>
 <div class="container">
 	<%@ include file="titleline.jsp" %>
-	<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default" style="margin-top:1em">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="${config.rootPath}/forum/${forumtitle.BM_ID}/block/${ft.BM_ID}">${ft.name}</a>
+				<a class="navbar-brand" href="${config.rootPath}/block/${ft.BM_ID}">${ft.name}</a>
 			</div>
 		</div>
 	</nav>
@@ -37,7 +37,7 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12">
-			<form action="${config.rootPath}/forum/${forumtitle.BM_ID}/replysubmit" method="POST">
+			<form action="${config.rootPath}/replysubmit" method="POST">
 				<div class="form-group">
 					<c:if test="${empty tmpCon}"><input type="text" class="form-control" placeholder="标题" name="title"/></c:if>
 					<c:if test="${not empty tmpCon}"><input type="text" class="form-control" placeholder="标题" name="title" value="${tmpCon.title}"/></c:if>

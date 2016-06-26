@@ -97,7 +97,7 @@ public class ForumManageController {
 		
 		request.setAttribute("page", this.forumContentService.getRecycleForumContentList("root",u.getBM_ID(), page));
 		
-		return "forum/recycle";
+		return "recycle";
 	}
 	
 	

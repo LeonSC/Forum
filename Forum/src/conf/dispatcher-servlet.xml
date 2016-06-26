@@ -47,19 +47,12 @@
 			<bean class="com.cedar.interceptor.PersonalInterceptor"/>  
 		</mvc:interceptor>  
 	</mvc:interceptors>
-	
-	<mvc:interceptors>    
-		<mvc:interceptor>  
-			<mvc:mapping path="/forum/**"/> 
-			<bean class="com.cedar.interceptor.ForumInterceptor"/>  
-		</mvc:interceptor>  
-	</mvc:interceptors>
-	
-	<mvc:interceptors>    
-		<mvc:interceptor>  
-			<mvc:mapping path="/forum/*/manage/**"/> 
-			<bean class="com.cedar.interceptor.ForumAdminInterceptor"/>  
-		</mvc:interceptor>  
-	</mvc:interceptors>
 	 -->
+	
+	<mvc:interceptors>    
+		<mvc:interceptor>  
+			<mvc:mapping path="/manage/**"/> 
+			<bean class="interceptor.ForumAdminInterceptor"/>  
+		</mvc:interceptor>  
+	</mvc:interceptors>
 </beans>

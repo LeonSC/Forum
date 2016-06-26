@@ -24,9 +24,9 @@
 			<ul class="list-group">
 				<c:forEach var="fc" items="${page.list}" varStatus="index">
 				<li class="list-group-item">${fc.title}
-					<span class="pull-right">[<a href="${config.rootPath}/forum/${forumtitle.BM_ID}/manage/delview?key=${fc.BM_ID}" class="alink">查看</a>]</span>
-					<span class="pull-right">[<a href="${config.rootPath}/forum/${forumtitle.BM_ID}/manage/setbacktopicfromrecycle?key=${fc.BM_ID}" class="alink">取消回收</a>]</span>
-					<span class="pull-right">[<a href="${config.rootPath}/forum/${forumtitle.BM_ID}/manage/del?topicid=${fc.BM_ID}" class="alink">删除</a>]</span>
+					<span class="pull-right">[<a href="${config.rootPath}/manage/delview?key=${fc.BM_ID}" class="alink" target="_blank">查看</a>]</span>
+					<span class="pull-right">[<a href="${config.rootPath}/manage/setbacktopicfromrecycle?key=${fc.BM_ID}" class="alink">取消回收</a>]</span>
+					<span class="pull-right">[<a href="${config.rootPath}/manage/del?topicid=${fc.BM_ID}" class="alink">删除</a>]</span>
 				</li>
 				</c:forEach>
 			</ul>
