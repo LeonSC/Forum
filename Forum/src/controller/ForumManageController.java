@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -16,7 +15,7 @@ import service.ForumHeadLineService;
 import startup.ForumCache;
 
 @Controller
-@RequestMapping("/forum/{BMID}/manage")
+@RequestMapping("/manage")
 public class ForumManageController {
 
 	@Autowired
@@ -31,7 +30,7 @@ public class ForumManageController {
 	 * @return
 	 */
 	@RequestMapping("/settopictoblocktop")
-	public String setTopicToBlockTop(HttpServletRequest request,@PathVariable String BMID,@RequestParam(value="topicid", required=false)String topicid)
+	public String setTopicToBlockTop(HttpServletRequest request,@RequestParam(value="topicid", required=false)String topicid)
 	{
 		User u=(User)request.getSession().getAttribute("mem");
 		
@@ -42,7 +41,7 @@ public class ForumManageController {
 			return "error/error";
 		}
 		
-		return new StringBuffer("redirect:/forum/").append(BMID).append("/block/").append(fc.getOuterkey()).append("?page=1").toString();//跳转回BLOCK中
+		return new StringBuffer("redirect:/block/").append(fc.getOuterkey()).append("?page=1").toString();//跳转回BLOCK中
 	}
 	
 	/**
@@ -52,7 +51,7 @@ public class ForumManageController {
 	 * @return
 	 */
 	@RequestMapping("/settopictoforumtop")
-	public String setTopicToForumTop(HttpServletRequest request,@PathVariable String BMID,@RequestParam(value="topicid", required=false)String topicid)
+	public String setTopicToForumTop(HttpServletRequest request,@RequestParam(value="topicid", required=false)String topicid)
 	{
 		User u=(User)request.getSession().getAttribute("mem");
 		
@@ -63,7 +62,7 @@ public class ForumManageController {
 			return "error/error";
 		}
 		
-		return new StringBuffer("redirect:/forum/").append(BMID).append("/block/").append(fc.getOuterkey()).append("?page=1").toString();//跳转回BLOCK中
+		return new StringBuffer("redirect:/block/").append(fc.getOuterkey()).append("?page=1").toString();//跳转回BLOCK中
 	}
 	
 	/**
@@ -73,7 +72,7 @@ public class ForumManageController {
 	 * @return
 	 */
 	@RequestMapping("/settopictonormal")
-	public String setTopicToNormal(HttpServletRequest request,@PathVariable String BMID,@RequestParam(value="topicid", required=false)String topicid)
+	public String setTopicToNormal(HttpServletRequest request,@RequestParam(value="topicid", required=false)String topicid)
 	{
 		User u=(User)request.getSession().getAttribute("mem");
 		
@@ -84,7 +83,7 @@ public class ForumManageController {
 			return "error/error";
 		}
 		
-		return new StringBuffer("redirect:/forum/").append(BMID).append("/block/").append(fc.getOuterkey()).append("?page=1").toString();//跳转回BLOCK中
+		return new StringBuffer("redirect:/block/").append(fc.getOuterkey()).append("?page=1").toString();//跳转回BLOCK中
 	}
 	
 	/**
@@ -92,13 +91,11 @@ public class ForumManageController {
 	 * @return
 	 */
 	@RequestMapping("/recycle")
-	public String recycle(HttpServletRequest request,@PathVariable String BMID,@RequestParam(value="page", required=false)Integer page)
+	public String recycle(HttpServletRequest request,@RequestParam(value="page", required=false)Integer page)
 	{
 		User u=(User)request.getSession().getAttribute("mem");
 		
-		request.setAttribute("forumtitle", ForumCache.getCache().forumTitle.get(BMID));
-		
-		request.setAttribute("page", this.forumContentService.getRecycleForumContentList(BMID,u.getBM_ID(), page));
+		request.setAttribute("page", this.forumContentService.getRecycleForumContentList("root",u.getBM_ID(), page));
 		
 		return "forum/recycle";
 	}
@@ -109,15 +106,13 @@ public class ForumManageController {
 	 * @return
 	 */
 	@RequestMapping("/settopictorecycle")
-	public String setTopicToRecycle(HttpServletRequest request,@PathVariable String BMID,@RequestParam(value="topicid", required=false)String topicid)
+	public String setTopicToRecycle(HttpServletRequest request,@RequestParam(value="topicid", required=false)String topicid)
 	{
 		User u=(User)request.getSession().getAttribute("mem");
 		
-		request.setAttribute("forumtitle", ForumCache.getCache().forumTitle.get(BMID));
-		
 		this.forumContentService.setForumContentToREC(topicid, u.getBM_ID());
 		
-		return new StringBuffer("redirect:/forum/").append(BMID).append("/manage/recycle?page=1").toString();
+		return new StringBuffer("redirect:/manage/recycle?page=1").toString();
 	}
 	
 	
@@ -126,15 +121,13 @@ public class ForumManageController {
 	 * @return
 	 */
 	@RequestMapping("/setbacktopicfromrecycle")
-	public String setBackTopicFromRecycle(HttpServletRequest request,@PathVariable String BMID,@RequestParam(value="key", required=false)String topicid)
+	public String setBackTopicFromRecycle(HttpServletRequest request,@RequestParam(value="key", required=false)String topicid)
 	{
 		User u=(User)request.getSession().getAttribute("mem");
 		
-		request.setAttribute("forumtitle", ForumCache.getCache().forumTitle.get(BMID));
-		
 		this.forumContentService.setForumContentToBack(topicid, u.getBM_ID());
 		
-		return new StringBuffer("redirect:/forum/").append(BMID).append("/manage/recycle?page=1").toString();
+		return new StringBuffer("redirect:/manage/recycle?page=1").toString();
 	}
 	
 	/**
@@ -146,7 +139,7 @@ public class ForumManageController {
 	 * @return
 	 */
 	@RequestMapping("/delview")
-	public String viewDelTopic(HttpServletRequest request,@PathVariable String BMID,@RequestParam(value="key", required=false) String topickey,@RequestParam(value="page", required=false)Integer page)
+	public String viewDelTopic(HttpServletRequest request,@RequestParam(value="key", required=false) String topickey,@RequestParam(value="page", required=false)Integer page)
 	{
 		ForumContent fc=this.forumContentService.getForumDelContentByBMID(topickey);
 		
@@ -161,13 +154,11 @@ public class ForumManageController {
 		{
 			return "error/error";
 		}
-		
-		request.setAttribute("forumtitle", ForumCache.getCache().forumTitle.get(BMID));
 		request.setAttribute("ft", ft);
 		request.setAttribute("fc", fc);
 		request.setAttribute("page", this.forumContentService.getForumContentList(topickey, page));
 		
-		return "forum/delview";
+		return "delview";
 	}
 	
 	/**
@@ -178,7 +169,7 @@ public class ForumManageController {
 	 * @return
 	 */
 	@RequestMapping("/del")
-	public String realDel(HttpServletRequest request,@PathVariable String BMID,@RequestParam(value="topicid", required=false)String topicid)
+	public String realDel(HttpServletRequest request,@RequestParam(value="topicid", required=false)String topicid)
 	{
 		User u=(User)request.getSession().getAttribute("mem");
 		
@@ -189,6 +180,6 @@ public class ForumManageController {
 			return "error/error";
 		}
 		
-		return new StringBuffer("redirect:/forum/").append(BMID).append("/block/").append(fc.getOuterkey()).append("?page=1").toString();//跳转回BLOCK中
+		return new StringBuffer("redirect:/block/").append(fc.getOuterkey()).append("?page=1").toString();//跳转回BLOCK中
 	}
 }
