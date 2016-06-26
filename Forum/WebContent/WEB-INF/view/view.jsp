@@ -6,9 +6,9 @@
 <html>
 <%@ include file="static/header.jsp" %>
 <body>
+<%@ include file="static/titleline.jsp" %>
 <div class="container">
-	<%@ include file="titleline.jsp" %>
-	<nav class="navbar navbar-default" style="margin-top:1em">
+	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="${config.rootPath}/block/${ft.BM_ID}">${ft.name}</a>

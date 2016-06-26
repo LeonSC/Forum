@@ -4,8 +4,8 @@
 <html>
 <%@ include file="static/header.jsp" %>
 <body>
+<%@ include file="static/titleline.jsp" %>
 <div class="container">
-	<%@ include file="titleline.jsp" %>
 	<c:forEach items="${forumCache.forumTitle['root'].subForumTitle}" varStatus="i" var="sft" >
 	<!-- block line loop -->
 	<div class="row">

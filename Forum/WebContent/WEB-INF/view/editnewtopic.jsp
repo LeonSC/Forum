@@ -6,9 +6,9 @@
 <link rel="stylesheet" href="//cdn.bootcss.com/medium-editor/5.10.0/css/medium-editor.min.css" type="text/css" media="screen"/>
 <link rel="stylesheet" href="//cdn.bootcss.com/medium-editor/5.10.0/css/themes/bootstrap.min.css" type="text/css" media="screen"/>
 <body>
+<%@ include file="static/titleline.jsp" %>
 <div class="container">
-	<%@ include file="titleline.jsp" %>
-	<nav class="navbar navbar-default" style="margin-top:1em">
+	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="${config.rootPath}/block/${ft.BM_ID}">${ft.name}</a>

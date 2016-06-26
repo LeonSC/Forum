@@ -3,8 +3,8 @@
 <html>
 <%@ include file="static/header.jsp" %>
 <body>
-<div class="container" style="margin-top:20px;margin-bottom:50px">
-	<%@ include file="titleline.jsp" %>
+<%@ include file="static/titleline.jsp" %>
+<div class="container" style="margin-bottom:50px">
 	<div class="row">
 		<div class="col-xs-6">
 			<form class="form-horizontal" method="post" action="${config.rootPath}/memregistersubmit">

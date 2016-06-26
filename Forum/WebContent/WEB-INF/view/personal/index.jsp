@@ -4,8 +4,8 @@
 <html>
 <%@ include file="../static/header.jsp" %>
 <body>
+<%@ include file="../static/titleline.jsp" %>
 <div class="container">
-<%@ include file="../titleline.jsp" %>
 <div class="row">
 <div class="col-xs-2">
 <%@ include file="nav.jsp" %>

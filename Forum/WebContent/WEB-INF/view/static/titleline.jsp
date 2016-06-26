@@ -25,7 +25,7 @@
 </nav>
 <!-- nav end -->
 <!-- title line -->
-<div class="row" style="margin-top:3.8em">
+<div class="row" style="margin-top:4.8em">
 	<!-- <div class="col-xs-12"><h2><a href="${config.rootPath}/forum/${forumtitle.BM_ID}" class="alink alinkblack">${forumCache.forumTitle["root"].name}</a></h2></div> -->
 </div>
 <!-- title line end -->
