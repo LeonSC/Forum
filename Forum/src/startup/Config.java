@@ -43,6 +43,9 @@ public class Config {
 	public static String uploadCallbackPath="";
 	public static String mainIP="";
 	
+	//远程图片服务器的用户和口令
+	public static String imageLogin="";
+	public static String imagePw="";
 	
 	/**
 	 * 数据库设置
@@ -82,8 +85,11 @@ public class Config {
 		Config.rootPath = prop.getProperty("rootPath");
 		Config.systemFile = prop.getProperty("systemFile");
 		Config.remoteImage = prop.getProperty("remoteImage");
-		Config.uploadCallbackPath = prop.getProperty("uploadCallbackPath");
 		Config.mainIP = prop.getProperty("mainIP");
+		Config.uploadCallbackPath = Config.rootPath+"/img/uploadcallback;"+Config.mainIP+"/img/uploadcallback;"+prop.getProperty("uploadCallbackPath");
+		
+		Config.imageLogin = prop.getProperty("imageLogin");
+		Config.imagePw = prop.getProperty("imagePw");
 		
 		Config.dbUser = prop.getProperty("dbUser");
 		Config.dbBase = prop.getProperty("dbBase");
