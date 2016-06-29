@@ -5,6 +5,7 @@
 <%@ include file="static/header.jsp" %>
 <body>
 <%@ include file="static/titleline.jsp" %>
+<img src="http://7xnuan.com1.z0.glb.clouddn.com/YINGEYANWU16821151704734.jpg" style="position:absolute;width:100%;top:0px;filter:alpha(opacity=50);-moz-opacity:0.5;opacity: 0.5;"/>
 <div class="container">
 	<c:forEach items="${forumCache.forumTitle['root'].subForumTitle}" varStatus="i" var="sft" >
 	<!-- block line loop -->
