@@ -16,6 +16,7 @@
 				<div class="col-xs-12">
 					<div class="col-xs-12">
 						<form class="form-inline" action="${config.rootPath}/admin/forumedit-submit" method="post">
+							<div class="form-group"><img src="http://sys.thinkingmax.com/cedar.png" class="img-rounded img-responsive" style="width:2.5em"/></div>
 							<div class="form-group">
 								<input type="text" class="form-control" name="name"/>
 								<input type="hidden" class="form-control" name="BM_ID" value="${forumtitle.BM_ID}"/>
@@ -23,6 +24,7 @@
 							<button type="submit" class="btn btn-default">修改</button>
 							<c:if test="${empty forumCache.forumTitle[forumtitle.BM_ID]}"><a href="${config.rootPath}/admin/forumonoffline?key=${forumtitle.BM_ID}&page=${ftpage.nowPage}" class="btn btn-default">上线</a></c:if>
 							<c:if test="${not empty forumCache.forumTitle[forumtitle.BM_ID]}"><a href="${config.rootPath}/admin/forumonoffline?key=${forumtitle.BM_ID}&page=${ftpage.nowPage}" class="btn btn-success">在线</a></c:if>
+							<a href="${config.rootPath}/admin/background" class="btn btn-default">图标</a>
 							<a href="${config.rootPath}" class="btn btn-default" target="_blank">浏览</a>
 						</form>
 					</div>
@@ -44,6 +46,7 @@
 						</div>
 						<button type="submit" class="btn btn-default">修改</button>
 						<a href="#" class="btn btn-default">管理员</a>
+						<a href="#" class="btn btn-default">小图标</a>
 						<a href="${config.rootPath}/admin/block-del-submit?from=${sft.BM_ID}&page=1&root=${forumtitle.BM_ID}" class="btn btn-link">删除</a>
 					</form>
 				</div>
@@ -62,8 +65,10 @@
 							<input type="hidden" class="form-control" name="topkey" value="${forumtitle.BM_ID}"/>
 						</div>
 						<button type="submit" class="btn btn-default">保存</button>
-						<a href="${config.rootPath}/admin/merge?from=${sftsub.BM_ID}&page=1&root=${forumtitle.BM_ID}" class="btn btn-link">删除/回收</a>
+						<a href="#" class="btn btn-default">小图标</a>
+						<a href="#" class="btn btn-default">背景图</a>
 						<a href="${config.rootPath}/admin/editmanager?key=${sftsub.BM_ID}&page=1" class="btn btn-link">管理员</a>
+						<a href="${config.rootPath}/admin/merge?from=${sftsub.BM_ID}&page=1&root=${forumtitle.BM_ID}" class="btn btn-link">删除/回收</a>
 						<div class="form-group">
 							<p class="form-control-static">
 							<c:forEach var="item" items="${sftsub.manager}" varStatus="status">

@@ -127,6 +127,13 @@ public class AdminIndexController {
 		return "redirect:forumedit";
 	}
 	
+	/*****************编辑背景图和ICON************************/
+	@RequestMapping("/background")
+	public String editBackgroundIcon()
+	{
+		return "admin/background";
+	}
+	
 	
 	/**********************************************************************/
 	@RequestMapping("/editmanager")
