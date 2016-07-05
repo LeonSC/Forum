@@ -211,8 +211,7 @@ public class AdminIndexController {
 	 * @return
 	 */
 	@RequestMapping("/delmanagerinblock")
-	public String delManagerInBlock(@RequestParam(value="key", required=false)String key,
-			@RequestParam(value="ukey", required=false)String ukey)
+	public String delManagerInBlock(@RequestParam(value="key", required=false)String key,@RequestParam(value="ukey", required=false)String ukey)
 	{
 		this.forumTitleService.delManagerInBlock(key, ukey);
 		return "redirect:editmanager?key="+key+"&page=1";

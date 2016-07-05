@@ -15,7 +15,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="col-xs-12">
-						<form class="form-inline" action="${config.rootPath}/admin/forumedit-icon-submit" method="post">
+						<form class="form-inline" action="${config.rootPath}/admin/forumedit-submit" method="post">
 							<div class="form-group"><img src="http://sys.thinkingmax.com/cedar.png" class="img-rounded img-responsive" style="width:2.5em"/></div>
 							<div class="form-group">
 								<input type="text" class="form-control" name="name"/>

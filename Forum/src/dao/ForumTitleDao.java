@@ -63,22 +63,30 @@ public class ForumTitleDao {
 		
 		UpdateOperations<ForumTitle> ops=MongoDBConnector.datastore.createUpdateOperations(ForumTitle.class);
 		
+		boolean check=false;
+		
 		if(ft.getName()!=null&&!ft.getName().isEmpty())
 		{
 			ops.set("name", ft.getName());
+			check=true;
 		}
 		
 		if(ft.getOrder()!=0)
 		{
 			ops.set("order", ft.getOrder());
+			check=true;
 		}
 		
-		if(ft.getManager()!=null&&!ft.getManager().isEmpty())
+		if(ft.getManager()!=null)
 		{
 			ops.set("manager", ft.getManager());
+			check=true;
 		}
 		
-		MongoDBConnector.datastore.update(updateQuery, ops);
+		if(check)
+		{
+			MongoDBConnector.datastore.update(updateQuery, ops);
+		}
 		
 		return MongoDBConnector.datastore.createQuery(ForumTitle.class).field("BM_ID").equal(ft.getBM_ID()).get();
 	}
@@ -154,7 +162,7 @@ public class ForumTitleDao {
 		UpdateOperations<ForumTitle> ops=MongoDBConnector.datastore.createUpdateOperations(ForumTitle.class);
 				
 		ops.set("background", ft.getBackground());
-		MongoDBConnector.datastore.update(updateQuery, ops,true);
+		MongoDBConnector.datastore.update(updateQuery, ops);
 		
 		return MongoDBConnector.datastore.createQuery(ForumTitle.class).field("BM_ID").equal(ft.getBM_ID()).get();
 	}
