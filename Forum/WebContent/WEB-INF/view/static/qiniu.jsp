@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<script type="text/javascript" src="${config.systemFile}/plupload.full.min.js"></script>
-<script type="text/javascript" src="${config.systemFile}/plupload_zh_CN.js"></script>
-<script type="text/javascript" src="${config.systemFile}/qiniu.js"></script>
+<script type="text/javascript" src="${config.rootPath}/system/plupload.full.min.js"></script>
+<script type="text/javascript" src="${config.rootPath}/system/plupload_zh_CN.js"></script>
+<script type="text/javascript" src="${config.rootPath}/system/qiniu.js"></script>
 <script>
 $(document).ready(function() {
 	//引入Plupload 、qiniu.js后
@@ -12,7 +12,7 @@ $(document).ready(function() {
 	    // uptoken : '', //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
 	    // unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
 	    // save_key: true,   // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK会忽略对key的处理
-	    domain: '7xobnk.com1.z0.glb.clouddn.com',   //bucket 域名，下载资源时用到，**必需**
+	    domain: '${config.domainBucket}',   //bucket 域名，下载资源时用到，**必需**
 	    get_new_uptoken: false,  //设置上传文件的时候是否每次都重新获取新的token
 	    //container: 'container',           //上传区域DOM ID，默认是browser_button的父元素，
 	    max_file_size: '3mb',           //最大文件体积限制

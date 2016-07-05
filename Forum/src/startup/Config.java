@@ -35,13 +35,12 @@ public class Config {
 	///////////////常用路径参数////////////////////////
 	public static String rootPath="";
 	
-	//远程系统图片和JS文件
-	public static String systemFile="";
-	
 	//远程上传图片
-	public static String remoteImage="";
-	public static String uploadCallbackPath="";
 	public static String mainIP="";
+	public static String uploadCallbackPath="";
+	
+	public static String bucketName="";
+	public static String domainBucket="";
 	
 	//远程图片服务器的用户和口令
 	public static String imageLogin="";
@@ -57,23 +56,16 @@ public class Config {
 	public static Integer dbPort;
 	//
 	
-	public String getRemoteimage() {
-		return remoteImage;
-	}
-
-
 	public String getUpdateTime() {
 		return updateTime;
 	}
-
 	public String getRootPath() {
 		return rootPath;
 	}
-
-	public String getSystemFile() {
-		return systemFile;
+	public String getDomainBucket()
+	{
+		return domainBucket;
 	}
-
 	
 	/**
 	 * 读取配置文件
@@ -83,10 +75,12 @@ public class Config {
 		Properties prop = this.getProperties();
 		
 		Config.rootPath = prop.getProperty("rootPath");
-		Config.systemFile = prop.getProperty("systemFile");
-		Config.remoteImage = prop.getProperty("remoteImage");
+
 		Config.mainIP = prop.getProperty("mainIP");
-		Config.uploadCallbackPath = Config.rootPath+"/img/uploadcallback;"+Config.mainIP+"/img/uploadcallback;"+prop.getProperty("uploadCallbackPath");
+		Config.uploadCallbackPath = prop.getProperty("uploadCallbackPath")+";"+Config.rootPath+"/img/uploadcallback;"+Config.mainIP+"/img/uploadcallback";
+		
+		Config.bucketName=prop.getProperty("bucketName");
+		Config.domainBucket=prop.getProperty("domainBucket");
 		
 		Config.imageLogin = prop.getProperty("imageLogin");
 		Config.imagePw = prop.getProperty("imagePw");

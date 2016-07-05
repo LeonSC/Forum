@@ -4,6 +4,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
+			<c:if test="${not empty forumCache.forumTitle['root'].icon}"><a class="navbar-brand" href="${config.rootPath}"><img src="http://${config.domainBucket}/${forumCache.forumTitle['root'].icon}" class="img-rounded img-responsive" style="width:1.5em"></a></c:if>
 			<a class="navbar-brand" href="${config.rootPath}">${forumCache.forumTitle["root"].name}</a>
 		</div>
 		<div class="navbar-collapse collapse">

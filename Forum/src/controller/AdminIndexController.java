@@ -82,15 +82,13 @@ public class AdminIndexController {
 	 * @param name
 	 * @param order
 	 * @param BM_ID
-	 * @param topkey
 	 * @return
 	 */
 	@RequestMapping("/forumedit-submit")
 	public String forumEditSubmit(
 			@RequestParam(value="name", required=false)String name,
 			@RequestParam(value="order", required=false)String order,
-			@RequestParam(value="BM_ID", required=false)String BM_ID,
-			@RequestParam(value="topkey", required=false)String topkey)
+			@RequestParam(value="BM_ID", required=false)String BM_ID)
 	{
 		int ordernum=0;
 		try {
@@ -128,10 +126,38 @@ public class AdminIndexController {
 	}
 	
 	/*****************编辑背景图和ICON************************/
+	/**
+	 * 进入图标编辑页面
+	 * @param request
+	 * @param key
+	 * @return
+	 */
 	@RequestMapping("/background")
-	public String editBackgroundIcon()
+	public String editBackgroundIcon(HttpServletRequest request,@RequestParam(value="key", required=false)String key)
 	{
+		ForumTitle ft=this.forumTitleService.findByBMID(key);
+		
+		if(ft==null)
+		{
+			return "error/error";
+		}
+		request.setAttribute("forumtitle", ft);
+		
 		return "admin/background";
+	}
+	
+	/**
+	 * 编辑ICON
+	 * @param BM_ID
+	 * @param imgSrc
+	 * @return
+	 */
+	@RequestMapping("/background-icon-submit")
+	public String submitBackgroundIcon(@RequestParam(value="BM_ID", required=false)String BM_ID, @RequestParam(value="imgSrc", required=false)String imgSrc)
+	{
+		this.forumTitleService.editForumTitleIcon(BM_ID, imgSrc);
+		
+		return "redirect:background?key="+BM_ID;
 	}
 	
 	

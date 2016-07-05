@@ -82,6 +82,28 @@ public class ForumTitleService {
 	}
 	
 	/**
+	 * 编辑个ForumTitle
+	 * @param BM_ID
+	 * @param name
+	 * @param order
+	 * @return
+	 */
+	public int editForumTitleIcon(String BM_ID,String src)
+	{
+		if(BM_ID==null)
+		{
+			return -2;
+		}
+		
+		ForumTitle ft=new ForumTitle();
+		
+		ft.setBM_ID(BM_ID);
+		ft.setIcon(src);
+		
+		return this.forumTitleDao.editIcon(ft).getBM_DEL();
+	}
+	
+	/**
 	 * 查找十个ForumTitle
 	 * 查找顶级ROOT的论坛FT
 	 * @param nowPage

@@ -84,6 +84,45 @@ public class ForumTitleDao {
 	}
 	
 	/**
+	 * 编辑ICON图标
+	 * @param ft
+	 * @return
+	 */
+	public ForumTitle editIcon(ForumTitle ft)
+	{
+		if(ft==null)
+		{
+			ft=new ForumTitle();
+			ft.setBM_DEL(-1);
+			return ft;
+		}
+		
+		if(ft.getBM_ID()==null||ft.getBM_ID().isEmpty())
+		{
+			ft=new ForumTitle();
+			ft.setBM_DEL(-2);
+			return ft;
+		}
+		
+		if(ft.getIcon()==null)
+		{
+			ft=new ForumTitle();
+			ft.setBM_DEL(-3);
+			return ft;
+		}
+		
+		Query<ForumTitle> updateQuery = MongoDBConnector.datastore.createQuery(ForumTitle.class).field("BM_ID").equal(ft.getBM_ID());
+		
+		UpdateOperations<ForumTitle> ops=MongoDBConnector.datastore.createUpdateOperations(ForumTitle.class);
+				
+		ops.set("icon", ft.getIcon());
+		MongoDBConnector.datastore.update(updateQuery, ops);
+		
+		return MongoDBConnector.datastore.createQuery(ForumTitle.class).field("BM_ID").equal(ft.getBM_ID()).get();
+	}
+	
+	
+	/**
 	 * 查找顶级ROOT的论坛FT
 	 * @param nowPage
 	 * @param numInPage

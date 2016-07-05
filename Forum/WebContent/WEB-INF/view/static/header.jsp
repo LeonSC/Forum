@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="user-scalable=yes" />
-<link rel="shortcut icon" type="image/ico" href="${config.systemFile}/icon/cedar.ico"/>
+<link rel="shortcut icon" type="image/ico" href=""/>
 <title>Cedar</title>
 <base href="${config.rootPath}/"/>
 <!-- 新 Bootstrap 核心 CSS 文件 -->

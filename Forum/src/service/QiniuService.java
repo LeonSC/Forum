@@ -28,12 +28,12 @@ public class QiniuService {
 	public String getUpToken(String usedin,String outerkey,String userid)
 	{
 		StringBuffer sb=new StringBuffer("key=$(key)&hash=$(etag)&w=$(imageInfo.width)&h=$(imageInfo.height)&token=")
-				.append(token)
+				.append(this.token)
 				.append("&usedin=").append(usedin)
 				.append("&outerkey=").append(outerkey)
 				.append("&userid=").append(userid);
 		
-		String token=this.auth.uploadToken("cedarfiles", null, 3600, new StringMap()
+		String token=this.auth.uploadToken(Config.bucketName, null, 3600, new StringMap()
 	         .put("callbackUrl", Config.uploadCallbackPath)
 	         .putNotEmpty("callbackHost", Config.mainIP)
 	         .put("callbackBody", sb.toString())
@@ -54,10 +54,10 @@ public class QiniuService {
 	public String getHeaderIconUpToken(String userid)
 	{
 		StringBuffer sb=new StringBuffer("key=$(key)&hash=$(etag)&w=$(imageInfo.width)&h=$(imageInfo.height)&token=")
-				.append(token)
+				.append(this.token)
 				.append("&userid=").append(userid);
 		
-		String token=this.auth.uploadToken("cedarheadericon", null, 3600, new StringMap()
+		String token=this.auth.uploadToken(Config.bucketName, null, 3600, new StringMap()
 	         .put("callbackUrl", Config.uploadCallbackPath)
 	         .putNotEmpty("callbackHost", Config.mainIP)
 	         .put("callbackBody", sb.toString())
@@ -84,10 +84,12 @@ public class QiniuService {
 	 */
 	public int setUploadImgToDB(String token, String name, String hash, Integer w, Integer h,String usedin, String outerkey, String userid)
 	{
-		if(!token.equals(token))
+		/**
+		if(!this.equals(token))
 		{
 			return -1;
 		}
+		**/
 		
 		Image img=new Image();
 		

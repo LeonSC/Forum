@@ -15,7 +15,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="col-xs-12">
-						<form class="form-inline" action="${config.rootPath}/admin/forumedit-submit" method="post">
+						<form class="form-inline" action="${config.rootPath}/admin/forumedit-icon-submit" method="post">
 							<div class="form-group"><img src="http://sys.thinkingmax.com/cedar.png" class="img-rounded img-responsive" style="width:2.5em"/></div>
 							<div class="form-group">
 								<input type="text" class="form-control" name="name"/>
@@ -24,7 +24,7 @@
 							<button type="submit" class="btn btn-default">修改</button>
 							<c:if test="${empty forumCache.forumTitle[forumtitle.BM_ID]}"><a href="${config.rootPath}/admin/forumonoffline?key=${forumtitle.BM_ID}&page=${ftpage.nowPage}" class="btn btn-default">上线</a></c:if>
 							<c:if test="${not empty forumCache.forumTitle[forumtitle.BM_ID]}"><a href="${config.rootPath}/admin/forumonoffline?key=${forumtitle.BM_ID}&page=${ftpage.nowPage}" class="btn btn-success">在线</a></c:if>
-							<a href="${config.rootPath}/admin/background" class="btn btn-default">图标</a>
+							<a href="${config.rootPath}/admin/background?key=${forumtitle.BM_ID}" class="btn btn-default">图标</a>
 							<a href="${config.rootPath}" class="btn btn-default" target="_blank">浏览</a>
 						</form>
 					</div>
