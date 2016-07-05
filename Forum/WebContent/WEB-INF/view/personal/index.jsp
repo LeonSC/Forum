@@ -110,7 +110,7 @@ var uploader = Qiniu.uploader({
     browse_button: 'upload_toqiniu_pickfiles',       //上传选择的点选按钮，**必需**
     uptoken_url: '${config.rootPath}/img/headerIconToken',//Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
     unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
-    domain: 'http://headericon.thinkingmax.com',   //bucket 域名，下载资源时用到，**必需**
+    domain: '${config.domainBucket}',   //bucket 域名，下载资源时用到，**必需**
     get_new_uptoken: false,  //设置上传文件的时候是否每次都重新获取新的token
     max_file_size: '3mb',           //最大文件体积限制
     max_retries: 3,                   //上传失败最大重试次数
