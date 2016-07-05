@@ -57,9 +57,9 @@
 </div>
 <%@ include file="static/footer.jsp" %>
 <script src="//cdn.bootcss.com/medium-editor/5.10.0/js/medium-editor.min.js"></script>
-<script type="text/javascript" src="${config.systemFile}/plupload.full.min.js"></script>
-<script type="text/javascript" src="${config.systemFile}/plupload_zh_CN.js"></script>
-<script type="text/javascript" src="${config.systemFile}/qiniu.js"></script>
+<script type="text/javascript" src="${config.rootPath}/system/plupload.full.min.js"></script>
+<script type="text/javascript" src="${config.rootPath}/system/plupload_zh_CN.js"></script>
+<script type="text/javascript" src="${config.rootPath}/system/qiniu.js"></script>
 <script>
 var reRunTime=180000;
 var recodContent="";
