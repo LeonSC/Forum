@@ -42,11 +42,9 @@
 						<div class="form-group">
 							<input type="text" class="form-control" name="name" value="${sft.name}"/>
 							<input type="hidden" class="form-control" name="BM_ID" value="${sft.BM_ID}"/>
-							<input type="hidden" class="form-control" name="topkey" value="${forumtitle.BM_ID}"/>
 						</div>
 						<button type="submit" class="btn btn-default">修改</button>
 						<a href="#" class="btn btn-default">管理员</a>
-						<a href="#" class="btn btn-default">小图标</a>
 						<a href="${config.rootPath}/admin/block-del-submit?from=${sft.BM_ID}&page=1&root=${forumtitle.BM_ID}" class="btn btn-link">删除</a>
 					</form>
 				</div>
@@ -62,11 +60,9 @@
 						<div class="form-group">
 							<input type="text" class="form-control" name="name" value="${sftsub.name}"/>
 							<input type="hidden" class="form-control" name="BM_ID" value="${sftsub.BM_ID}"/>
-							<input type="hidden" class="form-control" name="topkey" value="${forumtitle.BM_ID}"/>
 						</div>
 						<button type="submit" class="btn btn-default">保存</button>
-						<a href="#" class="btn btn-default">小图标</a>
-						<a href="#" class="btn btn-default">背景图</a>
+						<a href="${config.rootPath}/admin/background?key=${sftsub.BM_ID}" class="btn btn-default">图标</a>
 						<a href="${config.rootPath}/admin/editmanager?key=${sftsub.BM_ID}&page=1" class="btn btn-link">管理员</a>
 						<a href="${config.rootPath}/admin/merge?from=${sftsub.BM_ID}&page=1&root=${forumtitle.BM_ID}" class="btn btn-link">删除/回收</a>
 						<div class="form-group">
@@ -90,7 +86,6 @@
 						<div class="form-group">
 							<input type="text" class="form-control" name="name"/>
 							<input type="hidden" class="form-control" name="outerkey" value="${sft.BM_ID}"/>
-							<input type="hidden" class="form-control" name="topkey" value="${forumtitle.BM_ID}"/>
 						</div>
 						<button type="submit" class="btn btn-default">新增</button>
 					</form>
@@ -108,7 +103,6 @@
 						<div class="form-group">
 							<input type="text" class="form-control" name="name"/>
 							<input type="hidden" class="form-control" name="outerkey" value="${forumtitle.BM_ID}"/>
-							<input type="hidden" class="form-control" name="topkey" value="${forumtitle.BM_ID}"/>
 						</div>
 						<button type="submit" class="btn btn-default">新增</button>
 						<button type="submit" class="btn btn-default">回收站</button>

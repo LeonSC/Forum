@@ -5,7 +5,9 @@
 <%@ include file="static/header.jsp" %>
 <body>
 <%@ include file="static/titleline.jsp" %>
-<img src="http://7xnuan.com1.z0.glb.clouddn.com/YINGEYANWU16821151704734.jpg" style="position:absolute;width:100%;top:0px;filter:alpha(opacity=25);-moz-opacity:0.25;opacity: 0.25;"/>
+<c:if test="${not empty forumCache.forumTitle['root'].background.src}">
+<img src="http://${config.domainBucket}/${forumCache.forumTitle['root'].background.src}" style="position:absolute;width:100%;top:0px;filter:alpha(opacity=15);-moz-opacity:0.15;opacity: 0.15;"/>
+</c:if>
 <div class="container">
 	<c:forEach items="${forumCache.forumTitle['root'].subForumTitle}" varStatus="i" var="sft" >
 	<!-- block line loop -->
@@ -18,7 +20,10 @@
 	<div class="col-xs-6">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<h3><a href="${config.rootPath}/block/${sftsub.BM_ID}" class="alink alinkblack">${sftsub.name}</a></h3>
+				<h3><a href="${config.rootPath}/block/${sftsub.BM_ID}" class="alink alinkblack">
+				<c:if test="${not empty sftsub.icon}"><img src="http://${config.domainBucket}/${sftsub.icon}" class="img-rounded img-responsive pull-left" style="width:1.2em;margin-right:0.5em"/></c:if>
+				${sftsub.name}
+				</a></h3>
 				<hr/>
 				<c:forEach var="item" items="${sftsub.manager}" varStatus="status">
 					<small>${item.value.nickname}</small> <c:if test="${not status.last}">/</c:if>

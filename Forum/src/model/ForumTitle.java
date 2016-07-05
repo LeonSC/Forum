@@ -21,6 +21,8 @@ public class ForumTitle extends BaseModel{
 	private int lv;//0为通用
 	private int visible;//0为通用
 	
+	private Background background;
+	
 	@NotSaved
 	private List<ForumTitle> subForumTitle;
 	
@@ -89,5 +91,11 @@ public class ForumTitle extends BaseModel{
 	}
 	public void setManager(Map<String, User> manager) {
 		this.manager = manager;
+	}
+	public Background getBackground() {
+		return background;
+	}
+	public void setBackground(Background background) {
+		this.background = background;
 	}
 }

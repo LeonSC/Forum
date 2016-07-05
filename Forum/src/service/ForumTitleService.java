@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import dao.ForumContentDao;
 import dao.ForumTitleDao;
 import dao.UserDao;
+import model.Background;
 import model.ForumTitle;
 import model.Page;
 import model.User;
@@ -82,10 +83,9 @@ public class ForumTitleService {
 	}
 	
 	/**
-	 * 编辑个ForumTitle
+	 * 编辑个ForumTitleIcon
 	 * @param BM_ID
-	 * @param name
-	 * @param order
+	 * @param src
 	 * @return
 	 */
 	public int editForumTitleIcon(String BM_ID,String src)
@@ -102,6 +102,34 @@ public class ForumTitleService {
 		
 		return this.forumTitleDao.editIcon(ft).getBM_DEL();
 	}
+	
+	/**
+	 * 编辑个ForumTitleBackground
+	 * @param BM_ID
+	 * @param src
+	 * @return
+	 */
+	public int editForumTitleBackground(String BM_ID,String src)
+	{
+		if(BM_ID==null)
+		{
+			return -2;
+		}
+		
+		ForumTitle ft=new ForumTitle();
+		
+		ft.setBM_ID(BM_ID);
+		
+		if(ft.getBackground()==null)
+		{
+			ft.setBackground(new Background());
+		}
+		
+		ft.getBackground().setSrc(src);
+		
+		return this.forumTitleDao.editBackground(ft).getBM_DEL();
+	}
+	
 	
 	/**
 	 * 查找十个ForumTitle

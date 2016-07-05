@@ -160,6 +160,20 @@ public class AdminIndexController {
 		return "redirect:background?key="+BM_ID;
 	}
 	
+	/**
+	 * 编辑Background
+	 * @param BM_ID
+	 * @param imgSrc
+	 * @return
+	 */
+	@RequestMapping("/background-background-submit")
+	public String submitBackgroundBackground(@RequestParam(value="BM_ID", required=false)String BM_ID, @RequestParam(value="imgSrc", required=false)String imgSrc)
+	{
+		this.forumTitleService.editForumTitleBackground(BM_ID, imgSrc);
+		
+		return "redirect:background?key="+BM_ID;
+	}
+	
 	
 	/**********************************************************************/
 	@RequestMapping("/editmanager")

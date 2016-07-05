@@ -7,10 +7,16 @@
 <%@ include file="static/header.jsp" %>
 <body>
 <%@ include file="static/titleline.jsp" %>
+<c:if test="${not empty forumCache.forumTitle[ft.BM_ID].background.src}">
+<img src="http://${config.domainBucket}/${forumCache.forumTitle[ft.BM_ID].background.src}" style="position:absolute;width:100%;top:0px;filter:alpha(opacity=15);-moz-opacity:0.15;opacity: 0.15;"/>
+</c:if>
 <div class="container">
 	<nav class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header">
+				<c:if test="${not empty ft.icon}">
+				<a class="navbar-brand" href="${config.rootPath}/block/${ft.BM_ID}"><img src="http://${config.domainBucket}/${ft.icon}" class="img-rounded img-responsive" style="width:1.5em"></a>
+				</c:if>
 				<a class="navbar-brand" href="${config.rootPath}/block/${ft.BM_ID}">${ft.name}</a>
 			</div>
 			<div class="collapse navbar-collapse">
