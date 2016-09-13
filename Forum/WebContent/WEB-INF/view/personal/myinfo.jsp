@@ -11,32 +11,76 @@
 <%@ include file="nav.jsp" %>
 </div>
 <div class="col-xs-10">
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingOne">
       <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">我的帖子</a>
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">个人信息</a>
       </h4>
     </div>
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 	<div class="panel-body">
-		暂无
+		<form action="${config.rootPath}/personal/edit-submit" method="POST">
+		<ul class="list-group">
+			<li class="list-group-item list-group-item-success">登录账户: ${mem.username}</li>
+			<li class="list-group-item list-group-item-info">
+				<c:if test="${empty mem.headerIcon}"><img src="http://7xnnmr.com1.z0.glb.clouddn.com/cedar.png" class="img-rounded img-responsive" id="upload_toqiniu_pickfiles"/></c:if>
+				<c:if test="${not empty mem.headerIcon}"><img src="http://img.thinkingmax.com/${mem.headerIcon}?imageView2/1/w/200/h/200" class="img-rounded img-responsive" id="upload_toqiniu_pickfiles"/></c:if>
+				<input type="hidden" name="headericon" id="headericon"/>
+			</li>
+			<li class="list-group-item list-group-item-info">性别:
+				<div class="btn-group" data-toggle="buttons">
+					<c:choose>
+					<c:when test="${mem.gender==1}">
+					<label class="btn btn-default active">
+						<input type="radio" name="gender" value="1" autocomplete="off" checked/> 男士
+					</label>
+					</c:when>
+					<c:otherwise>
+					<label class="btn btn-default">
+						<input type="radio" name="gender" value="1" autocomplete="off"/> 男士
+					</label>
+					</c:otherwise>
+					</c:choose>
+					<c:choose>
+					<c:when test="${mem.gender==2}">
+					<label class="btn btn-default active">
+						<input type="radio" name="gender" value="2" autocomplete="off" checked/> 女士
+					</label>
+					</c:when>
+					<c:otherwise>
+					<label class="btn btn-default">
+						<input type="radio" name="gender" value="2" autocomplete="off"/> 女士
+					</label>
+					</c:otherwise>
+					</c:choose>
+					<c:choose>
+					<c:when test="${mem.gender==0}">
+					<label class="btn btn-default active">
+						<input type="radio" name="gender" value="0" autocomplete="off" checked/> 保密
+					</label>
+					</c:when>
+					<c:otherwise>
+					<label class="btn btn-default">
+						<input type="radio" name="gender" value="0" autocomplete="off"/> 保密
+					</label>
+					</c:otherwise>
+					</c:choose>
+				</div>
+			</li>
+			<li class="list-group-item list-group-item-info"> 
+			<div class="input-group col-xs-6">
+				<span class="input-group-addon">昵称:</span>
+				<input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" name="nickname" value="${mem.nickname}">
+			</div>
+			</li>
+			<li class="list-group-item list-group-item-info"> 
+			<button type="submit" class="btn btn-default">确认编辑</button>
+			</li>
+		</ul>
+		</form>
 	</div>
     </div>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
-      <h4 class="panel-title">
-        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">我的通知</a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-      <div class="panel-body">
-      	暂无
-      </div>
-    </div>
-  </div>
-</div>
 </div>
 </div>
 </div>
@@ -85,7 +129,7 @@ var uploader = Qiniu.uploader({
 				//console.log(JSON.stringify(up));
 				//console.log(JSON.stringify(info));
 				$("#headericon").val(n.target_name);
-				$("#upload_toqiniu_pickfiles").attr("src",domain+'/'+n.target_name+"?imageView2/1/w/200/h/200");
+				$("#upload_toqiniu_pickfiles").attr("src","http://"+domain+'/'+n.target_name+"?imageView2/1/w/200/h/200");
 			});
         },
         'Error': function(up, err, errTip) {

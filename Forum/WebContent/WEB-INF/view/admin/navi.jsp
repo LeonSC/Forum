@@ -20,7 +20,7 @@ $(document).ready(function(){
 	var tmp=$('#navi_nav').find('li');
 
 	tmp.each(function(){
-		if(url.indexOf($(this).find('a').attr('href'))>0)
+		if(url==$(this).find('a').attr('href'))
 		{
 			$(this).addClass('active');
 
