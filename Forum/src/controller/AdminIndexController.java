@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import model.ForumTitle;
 import service.ForumContentService;
 import service.ForumTitleService;
+import service.SynchroService;
 import service.UserService;
 import startup.ForumCache;
 
@@ -23,6 +24,8 @@ public class AdminIndexController {
 	private UserService userService;
 	@Autowired
 	private ForumContentService forumContentService;
+	@Autowired
+	private SynchroService synchroService;
 	
 	
 	@RequestMapping("")
@@ -348,4 +351,30 @@ public class AdminIndexController {
 		return "redirect:forumlist";
 	}
 
+	//////////////////////////////////////同步设置相关/////////////////////////////////////////////
+	/**
+	 * 同步首页
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/synchro")
+	public String synIndex(HttpServletRequest request,@RequestParam(value="page", required=false)Integer page)
+	{
+		request.setAttribute("page", this.synchroService.findLimit(page));
+		
+		return "admin/syn";
+	}
+	
+	/**
+	 * 提交同步列表
+	 * @param ip
+	 * @return
+	 */
+	@RequestMapping("/synchro-submit")
+	public String synSubmit(@RequestParam(value="ip", required=false)String ip,@RequestParam(value="alias", required=false)String alias)
+	{
+		this.synchroService.save(ip, alias);
+		
+		return "redirect:synchro";
+	}
 }

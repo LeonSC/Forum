@@ -10,6 +10,7 @@
 			<ul class="nav nav-pills nav-stacked" id="navi_nav">
 				<li><a href="${config.rootPath}/admin/index">首页</a></li>
 				<li><a href="${config.rootPath}/admin/forumedit">论坛管理</a></li>
+				<li><a href="${config.rootPath}/admin/synchro">论坛设置</a></li>
 			</ul>
 		</div>
 	</div>
