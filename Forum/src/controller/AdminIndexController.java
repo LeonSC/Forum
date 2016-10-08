@@ -377,4 +377,17 @@ public class AdminIndexController {
 		
 		return "redirect:synchro";
 	}
+	
+	
+	/**
+	 * 点击事件后,触发更新指令,把更新分发到各个节点去
+	 * @return
+	 */
+	@RequestMapping("/synchro-now")
+	public String synNow()
+	{
+		this.synchroService.renewSynKeyAndRelord();
+		
+		return "redirect:synchro";
+	}
 }

@@ -61,6 +61,7 @@ public class ForumCache {
 	/**
 	 * 重建缓存
 	 * 只在启动的时候使用
+	 * SynchroService->relordForumTitleTriger中重建缓存
 	 * @return
 	 */
 	public int reBuildForumTitleCache()

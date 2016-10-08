@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
@@ -77,23 +79,34 @@ public class SynchroDao {
 		return page;
 	}
 	
+	/**
+	 * 查询全部的节点,仅用于更新
+	 * @return
+	 */
+	public List<Synchro> find()
+	{
+		return MongoDBConnector.datastore.createQuery(Synchro.class).order("-BM_TIME").asList();
+	}
+	
 	
 	/**
 	 * 查询一个同步KEY,如果没有就新增一个
 	 * @return
 	 */
-	public int saveOrUpdateTempSynCheckKey()
+	public String saveOrUpdateTempSynCheckKey()
 	{		
 		Query<TempSynCheckKey> updateQuery = MongoDBConnector.datastore.createQuery(TempSynCheckKey.class);
 		
 		UpdateOperations<TempSynCheckKey> ops=MongoDBConnector.datastore.createUpdateOperations(TempSynCheckKey.class);
 		
-		ops.set("key", Tools.getID("synkey"));
+		String key=Tools.getID("synkey");
+		
+		ops.set("key", key);
 		ops.set("limit", Tools.getServerTime());
 		
 		MongoDBConnector.datastore.update(updateQuery, ops,true);
 		
-		return 0;
+		return key;
 	}
 	
 	/**

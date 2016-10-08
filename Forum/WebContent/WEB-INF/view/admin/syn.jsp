@@ -16,15 +16,6 @@
 			</div>
 			<hr/>
 			<div class="row">
-				<div class="col-xs-6">
-					<ul class="list-group">
-						<c:forEach items="${page.list}" varStatus="i" var="item" >
-						<li class="list-group-item"><span class="badge btn-warning">未连接</span><span class="syn_ip_address">${item.ipAddress}</span> - ${item.alias}</li>
-						</c:forEach>
-					</ul>
-				</div>
-			</div>
-			<div class="row">
 				<div class="col-xs-12">
 					<form class="form-inline" action="${config.rootPath}/admin/synchro-submit" method="post">
 						<div class="form-group">
@@ -38,39 +29,26 @@
 					</form>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<ul class="list-group">
+						<c:forEach items="${page.list}" varStatus="i" var="item" >
+						<li class="list-group-item"><span class="badge btn-warning">未连接</span><span class="syn_ip_address">${item.ipAddress}</span> - ${item.alias}</li>
+						</c:forEach>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
 <%@ include file="footer.jsp" %>
 <script type="text/javascript">
 $(document).ready(function(){
-	//处理本机测试,定义了特殊目录等情况
-	var suffix=document.location+"";
-	
-	var strs=suffix.split("//");
-	
-	if(strs.length>1)
-	{
-		suffix=strs[1];
-	}
-	
-	strs=suffix.split("/");
-	
-	if(strs.length>3)
-	{
-		suffix="/"+strs[1];
-	}
-	else
-	{
-		suffix="";
-	}
-	//处理本机测试,定义了特殊目录等情况--结束
-	
 	$("span.syn_ip_address").each(function(i){
 		
 		var thi=$(this);
 		
-		$.get("http://"+thi.html()+suffix+"/synchro/check", function(data){
+		$.get("http://"+thi.html()+"/synchro/check", function(data){
 			if(data=="ok")
 			{
 				var tmp=thi.prev();
