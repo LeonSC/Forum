@@ -88,7 +88,7 @@ public class SynchroService {
 			try {
 				URL realUrl = new URL(new StringBuffer("http://").append(syn.getIpAddress()).append("/synchro/reload/").append(key).toString());
 				URLConnection connection = realUrl.openConnection();
-				connection.setConnectTimeout(2000);
+				connection.setConnectTimeout(1000);
 				connection.connect();
 			} catch (Exception e) {
 				continue;
@@ -119,7 +119,7 @@ public class SynchroService {
 			try {
 				URL realUrl = new URL(new StringBuffer("http://").append(syn.getIpAddress()).append("/synchro/forumonoffline/").append(key).append("?model=on").toString());
 				URLConnection connection = realUrl.openConnection();
-				connection.setConnectTimeout(2000);
+				connection.setConnectTimeout(1000);
 				connection.connect();
 			} catch (Exception e) {
 				continue;
@@ -128,6 +128,19 @@ public class SynchroService {
 		}
 		
 		return 0;
+	}
+	
+	
+	/**
+	 * 删除一个节点
+	 * @param BMID
+	 * @return
+	 */
+	public int deleteANode(String BMID)
+	{
+		int re=this.synchroDao.delete(BMID);
+		
+		return re;
 	}
 	
 	/**
@@ -150,7 +163,7 @@ public class SynchroService {
 			try {
 				URL realUrl = new URL(new StringBuffer("http://").append(syn.getIpAddress()).append("/synchro/forumonoffline/").append(key).append("?model=off").toString());
 				URLConnection connection = realUrl.openConnection();
-				connection.setConnectTimeout(2000);
+				connection.setConnectTimeout(1000);
 				connection.connect();
 			} catch (Exception e) {
 				continue;

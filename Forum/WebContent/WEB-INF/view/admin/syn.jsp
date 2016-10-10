@@ -33,7 +33,7 @@
 				<div class="col-xs-6">
 					<ul class="list-group">
 						<c:forEach items="${page.list}" varStatus="i" var="item" >
-						<li class="list-group-item"><span class="badge btn-warning">未连接</span><span class="syn_ip_address">${item.ipAddress}</span> - ${item.alias}</li>
+						<li class="list-group-item"><a href="${config.rootPath}/admin/synchro-del?bmid=${item.BM_ID}"><span></span></a><span class="badge btn-warning">未连接</span><span class="syn_ip_address">${item.ipAddress}</span> - ${item.alias}</li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -58,6 +58,16 @@ $(document).ready(function(){
 				tmp.html("正常");
 			}
 		});
+	});
+	
+	$(".list-group-item").dblclick(function(){
+		
+		if (!confirm("确认要删除？"))
+		{
+			return false;
+		}
+		
+		$(this).find("a span").click();
 	});
 });
 </script>

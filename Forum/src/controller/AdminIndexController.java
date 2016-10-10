@@ -392,4 +392,15 @@ public class AdminIndexController {
 		
 		return "redirect:synchro";
 	}
+	
+	/**
+	 * 节点管理,删除
+	 * @return
+	 */
+	@RequestMapping("/synchro-del")
+	public String synNodeDel(@RequestParam(value="bmid", required=false)String BMID)
+	{
+		this.synchroService.deleteANode(BMID);
+		return "redirect:synchro";
+	}
 }

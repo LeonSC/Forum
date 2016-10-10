@@ -80,6 +80,20 @@ public class SynchroDao {
 	}
 	
 	/**
+	 * 真实删除一个节点
+	 * @param BMID
+	 * @return
+	 */
+	public int delete(String BMID)
+	{
+		Query<Synchro> query=MongoDBConnector.datastore.createQuery(Synchro.class).field("BM_ID").equal(BMID);
+		
+		MongoDBConnector.datastore.delete(query);
+		
+		return 0;
+	}
+	
+	/**
 	 * 查询全部的节点,仅用于更新
 	 * @return
 	 */
