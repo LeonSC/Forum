@@ -8,18 +8,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import model.User;
-import service.UserService;
+import service.PersonalService;
 
 @Controller
 @RequestMapping("/personal")
 public class PersonalController {
 
 	@Autowired
-	private UserService userService;
+	private PersonalService personalService;
 	
 	@RequestMapping("/index")
-	public String index()
+	public String index(HttpServletRequest request)
 	{
+		User user=(User)request.getSession().getAttribute("mem");
+		
+		request.setAttribute("topicpage", this.personalService.findUserTopic(user.getBM_ID(), 1));
+		
 		return "personal/index";
 	}
 	
@@ -31,10 +35,32 @@ public class PersonalController {
 	{
 		User user=(User)request.getSession().getAttribute("mem");
 		
-		user=this.userService.editUserByBMID(user.getBM_ID(), headericon, nickname, gender);
+		user=this.personalService.editUserByBMID(user.getBM_ID(), headericon, nickname, gender);
 		
 		request.getSession().setAttribute("mem", user);
 		
 		return "redirect:/personal/index";
 	}
+	
+	@RequestMapping("/mytopic")
+	public String myTopic(HttpServletRequest request)
+	{
+		User user=(User)request.getSession().getAttribute("mem");
+		
+		request.setAttribute("topicpage", this.personalService.findUserTopic(user.getBM_ID(), 1));
+		
+		return "personal/mytopic";
+	}
+	
+	@RequestMapping("/mycontent")
+	public String myContent(HttpServletRequest request)
+	{
+		User user=(User)request.getSession().getAttribute("mem");
+		
+		request.setAttribute("topicpage", this.personalService.findUserTopic(user.getBM_ID(), 1));
+		
+		return "personal/mycontent";
+	}
+	
+	
 }

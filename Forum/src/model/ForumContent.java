@@ -26,6 +26,8 @@ public class ForumContent extends BaseModel {
 	
 	private Long lastReply=0L;
 	
+	private Integer layer=0;//this is for topic or reply
+	
 	public Long getReplyCount() {
 		return replyCount;
 	}
@@ -97,5 +99,13 @@ public class ForumContent extends BaseModel {
 
 	public void setContentList(List<Content> contentList) {
 		this.contentList = contentList;
+	}
+
+	public Integer getLayer() {
+		return layer;
+	}
+
+	public void setLayer(Integer layer) {
+		this.layer = layer;
 	}
 }

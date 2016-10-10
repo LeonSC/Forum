@@ -112,7 +112,7 @@ public class ForumUserController {
 			return "error/error";
 		}
 		
-		this.forumContentService.saveAReply(fc, title, content);
+		this.forumContentService.saveATopic(fc, title, content);
 		return "redirect:/block/"+fc.getOuterkey();
 	}
 	

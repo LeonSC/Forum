@@ -6,19 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
-import dao.ForumContentDao;
 import dao.UserDao;
 import model.Page;
 import model.User;
 import tools.Tools;
 
+/**
+ * 用于登录相关
+ * @author sasgsc
+ */
 @Service
 public class UserService {
 
 	@Autowired
 	private UserDao userDao;
-	@Autowired
-	private ForumContentDao forumContentDao;
 	
 	/**
 	 * 同时还要查找这个用户的管理员属性
@@ -167,30 +168,5 @@ public class UserService {
 			return null;
 		}
 		return this.userDao.findUserByBMID(bmid);
-	}
-	
-	/**
-	 * 编辑用户信息
-	 * @param BMID
-	 * @param headerIcon
-	 * @param nickname
-	 * @param gender
-	 * @return
-	 */
-	public User editUserByBMID(String BMID,String headerIcon,String nickname,Integer gender)
-	{
-		User u=new User();
-		
-		u.setBM_ID(BMID);
-		u.setHeaderIcon(headerIcon);
-		u.setNickname(nickname);
-		u.setGender(gender);
-		
-		u=this.userDao.editUser(u);
-		
-		//用户信息修改后, 需要对相应的内置文档进行修改
-		this.forumContentDao.editStartUser(BMID);
-		
-		return u;
 	}
 }

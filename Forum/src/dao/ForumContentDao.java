@@ -404,6 +404,41 @@ public class ForumContentDao {
 		return MongoDBConnector.datastore.createQuery(ForumContent.class).field("outerkey").equal(outerKey).countAll();
 	}
 	
+	/************************用户查找************************************/
+	/**
+	 * 根据用户ID查找发帖
+	 * @param writer 用户的BMID
+	 * @param layer 所要查找的层级,0代表topic,1代表0下面的层级
+	 * @param nowPage 
+	 * @param numInPage
+	 * @param order true/false false为按时间逆序
+	 * @return
+	 */
+	public Page<ForumContent> findByUser(String writer,Integer layer, int nowPage, int numInPage, boolean order)
+	{
+		Query<ForumContent> query=MongoDBConnector.datastore.createQuery(ForumContent.class).field("BM_DEL").equal(0).field("layer").equal(layer).field("startuser.BM_ID").equal(writer);
+		
+		Page<ForumContent> page=new Page<ForumContent>();
+		
+		page.setTotal(query.countAll());
+		
+		page.setNowPage(nowPage);
+		page.setTotalInPage(numInPage);
+		
+		page.getPage();
+		
+		if(order)
+		{
+			page.setList(query.field("BM_DEL").equal(0).order("lastReply").offset(page.getSkip()).limit(numInPage).asList());
+		}
+		else
+		{
+			page.setList(query.field("BM_DEL").equal(0).order("-lastReply").offset(page.getSkip()).limit(numInPage).asList());
+		}
+		
+		return page;
+	}
+	
 	
 	/************************论坛管理员使用下列方法查找*******************************/
 	/**

@@ -3,7 +3,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="user-scalable=yes" />
 <link rel="shortcut icon" type="image/ico" href=""/>
-<title>Cedar</title>
+<title>${forumCache.forumTitle["root"].name}</title>
 <base href="${config.rootPath}/"/>
 <!-- 新 Bootstrap 核心 CSS 文件 -->
 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css"/>

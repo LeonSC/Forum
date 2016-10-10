@@ -90,7 +90,8 @@ public class ForumContentService {
 	 * @return
 	 */
 	public ForumContent saveAReply(ForumContent fc, String title,String content)
-	{		
+	{
+		fc.setLayer(1);
 		return this.saveATopic(fc ,  title, content);
 	}
 	
@@ -147,6 +148,7 @@ public class ForumContentService {
 		fc.setTitle("");
 		fc.setContent(content);
 		fc.setStartuser(u);
+		fc.setLayer(1);
 		
 		fc=this.forumContentDao.save(fc);
 		
