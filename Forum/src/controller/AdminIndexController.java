@@ -119,10 +119,12 @@ public class AdminIndexController {
 		if(ForumCache.getCache().forumTitle.containsKey("root"))
 		{
 			ForumCache.getCache().forumTitle.clear();
+			this.synchroService.setForumOff();
 		}
 		else
 		{
 			ForumCache.getCache().renewForumTitleCache();
+			this.synchroService.setForumOn();
 		}
 		
 		return "redirect:forumedit";

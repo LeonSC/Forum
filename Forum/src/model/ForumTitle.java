@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.NotSaved;
 
 @Entity("forumtitle")
 public class ForumTitle extends BaseModel{
@@ -21,7 +20,6 @@ public class ForumTitle extends BaseModel{
 	
 	private Background background;
 	
-	@NotSaved
 	private List<ForumTitle> subForumTitle;
 	
 	private Map<String, User> manager=new HashMap<String, User>();//BMID, USER MODEL

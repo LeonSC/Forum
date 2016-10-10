@@ -88,6 +88,7 @@ public class SynchroService {
 			try {
 				URL realUrl = new URL(new StringBuffer("http://").append(syn.getIpAddress()).append("/synchro/reload/").append(key).toString());
 				URLConnection connection = realUrl.openConnection();
+				connection.setConnectTimeout(2000);
 				connection.connect();
 			} catch (Exception e) {
 				continue;
@@ -97,6 +98,69 @@ public class SynchroService {
 		
 		return 0;
 	}
+	
+	/**
+	 * 集群论坛设置为开启
+	 * @return
+	 */
+	public int setForumOn()
+	{
+		List<Synchro> list=this.synchroDao.find();
+		
+		if(list==null)
+		{
+			return 0;
+		}
+		
+		String key=this.synchroDao.saveOrUpdateTempSynCheckKey();
+		
+		for(Synchro syn:list)
+		{
+			try {
+				URL realUrl = new URL(new StringBuffer("http://").append(syn.getIpAddress()).append("/synchro/forumonoffline/").append(key).append("?model=on").toString());
+				URLConnection connection = realUrl.openConnection();
+				connection.setConnectTimeout(2000);
+				connection.connect();
+			} catch (Exception e) {
+				continue;
+			}
+			
+		}
+		
+		return 0;
+	}
+	
+	/**
+	 * 集群论坛设置为关闭
+	 * @return
+	 */
+	public int setForumOff()
+	{
+		List<Synchro> list=this.synchroDao.find();
+		
+		if(list==null)
+		{
+			return 0;
+		}
+		
+		String key=this.synchroDao.saveOrUpdateTempSynCheckKey();
+		
+		for(Synchro syn:list)
+		{
+			try {
+				URL realUrl = new URL(new StringBuffer("http://").append(syn.getIpAddress()).append("/synchro/forumonoffline/").append(key).append("?model=off").toString());
+				URLConnection connection = realUrl.openConnection();
+				connection.setConnectTimeout(2000);
+				connection.connect();
+			} catch (Exception e) {
+				continue;
+			}
+			
+		}
+		
+		return 0;
+	}
+	
 	
 	/**
 	 * 触发论坛结构重建,和上下线的锁
