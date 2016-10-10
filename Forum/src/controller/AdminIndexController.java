@@ -56,7 +56,7 @@ public class AdminIndexController {
 	@RequestMapping("/forumedit")
 	public String forumEdit(HttpServletRequest request)
 	{
-		request.setAttribute("forumtitle", this.forumTitleService.findFullForumTitleByBMID("root"));
+		request.setAttribute("forumtitle", this.forumTitleService.findFullForumTitleByBMID());
 		
 		return "admin/forumedit";
 	}
@@ -118,11 +118,11 @@ public class AdminIndexController {
 	{
 		if(ForumCache.getCache().forumTitle.containsKey("root"))
 		{
-			ForumCache.getCache().removeRootKey("root");
+			ForumCache.getCache().forumTitle.clear();
 		}
 		else
 		{
-			ForumCache.getCache().putRootKey("root", this.forumTitleService.findFullForumTitleByBMID("root"));
+			ForumCache.getCache().renewForumTitleCache();
 		}
 		
 		return "redirect:forumedit";

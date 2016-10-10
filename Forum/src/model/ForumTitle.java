@@ -7,8 +7,6 @@ import java.util.Map;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.NotSaved;
 
-import startup.ForumCache;
-
 @Entity("forumtitle")
 public class ForumTitle extends BaseModel{
 
@@ -68,16 +66,8 @@ public class ForumTitle extends BaseModel{
 		return subForumTitle;
 	}
 	//build the forum title
-	public void setSubForumTitle(List<ForumTitle> subForumTitle) {
-		
-		//loop to HashMap		
-		for(int i=0;i<subForumTitle.size();i++)
-		{
-			ForumTitle tmp=subForumTitle.get(i);
-			
-			ForumCache.getCache().forumTitle.put(tmp.getBM_ID(), tmp);
-		}
-		
+	public void setSubForumTitle(List<ForumTitle> subForumTitle)
+	{		
 		this.subForumTitle = subForumTitle;
 	}
 	public String getOuterkey() {

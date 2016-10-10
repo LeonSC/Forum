@@ -241,10 +241,8 @@ public class ForumTitleDao {
 	{
 		List<ForumTitle> tmp=MongoDBConnector.datastore.createQuery(ForumTitle.class).field("outerkey").equal(outerkey).order("-order").asList();
 		
-		for(int i=0;i<tmp.size();i++)
+		for(ForumTitle ft:tmp)
 		{
-			ForumTitle ft=tmp.get(i);
-			
 			ft.setSubForumTitle(this.findByOuterKey(ft.getBM_ID()));
 		}
 		
@@ -271,11 +269,17 @@ public class ForumTitleDao {
 	
 	/**
 	 * 使用BMID真实删除一个节点
+	 * root节点不能被删除
 	 * @param BMID
 	 * @return
 	 */
 	public int realDelBMID(String BMID)
 	{
+		if(BMID.equals("root"))
+		{
+			return -1;
+		}
+		
 		Query<ForumTitle> query=MongoDBConnector.datastore.createQuery(ForumTitle.class).field("BM_ID").equal(BMID);
 		
 		MongoDBConnector.datastore.delete(query);

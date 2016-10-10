@@ -54,14 +54,16 @@ public class ForumCache {
 		return 0;
 	}
 	
-	
+	/**
+	 * 启动的时候,如果库里有数据,则装载已有数据,如果没有数据则读取初始化数据并把初始化数据放入库中
+	 * 论坛结构调整和是否在线无关
+	 */
 	///////////////////////////////////////
 	public Map<String,ForumTitle> forumTitle=new HashMap<String,ForumTitle>();
 	
 	/**
 	 * 重建缓存
 	 * 只在启动的时候使用
-	 * SynchroService->relordForumTitleTriger中重建缓存
 	 * @return
 	 */
 	public int reBuildForumTitleCache()
@@ -75,34 +77,42 @@ public class ForumCache {
 		this.initUniqueForumTitle();
 		
 		//检测配置文件
-		Startup s=MongoDBConnector.datastore.createQuery(Startup.class).order("-BM_TIME").get();//读取配置, 如果有就读入内存, 没有就重建
+		Startup s=MongoDBConnector.datastore.createQuery(Startup.class).order("-BM_TIME").get();
 		
-		if(s==null)
+		//读取配置, 如果有就读入内存
+		if(s!=null)
 		{
+			this.forumTitle=s.getForumTitle();
 			return 1;
 		}
 		
+		//没有重建,从root根读起,root的父ID为0
 		if(ForumCache.forumCache==null||ForumCache.forumCache.forumTitle==null)
 		{
 			return -1;
 		}
 		
-		ForumCache.forumCache.forumTitle.clear();
+		this.forumTitle.clear();
 		
 		//rebuild
-		for(String key:s.getForumTitle())
+		ForumTitle ft=MongoDBConnector.datastore.createQuery(ForumTitle.class).field("BM_ID").equal("root").get();
+		
+		if(ft==null)
 		{
-			ForumTitle ft=MongoDBConnector.datastore.createQuery(ForumTitle.class).field("BM_ID").equal(key).get();
-			
-			if(ft==null)
-			{
-				continue;
-			}
-			
-			ft.setSubForumTitle(this.findByOuterKey(ft.getBM_ID()));
-			
-			ForumCache.forumCache.forumTitle.put(key, ft);
+			return -2;
 		}
+			
+		ft.setSubForumTitle(this.findByOuterKey(ft.getBM_ID()));
+		
+		this.forumTitle.put(ft.getBM_ID(), ft);
+		
+		//把组建好的数据放入到Startup中,保存到数据库里去
+		s=new Startup();
+		
+		s.setForumTitle(this.forumTitle);
+		
+		MongoDBConnector.datastore.save(s);
+		//保存完成
 		
 		return 0;
 	}
@@ -117,9 +127,16 @@ public class ForumCache {
 	{
 		List<ForumTitle> tmp=MongoDBConnector.datastore.createQuery(ForumTitle.class).field("outerkey").equal(outerkey).order("-order").asList();
 		
-		for(int i=0;i<tmp.size();i++)
+		//如果没有查询到任何数据则返回一个空LIST
+		if(tmp==null)
 		{
-			ForumTitle ft=tmp.get(i);
+			return new ArrayList<ForumTitle>();
+		}
+		
+		for(ForumTitle ft:tmp)
+		{
+			//放入缓存中以供调用
+			this.forumTitle.put(ft.getBM_ID(), ft);
 			
 			ft.setSubForumTitle(this.findByOuterKey(ft.getBM_ID()));
 		}
@@ -129,10 +146,11 @@ public class ForumCache {
 	
 	/**
 	 * 保存forumCache到数据库
-	 * 只用在removeRootKey, putRootKey和task内
+	 * 在启动的时候已经加入缓存,所以如果为空则说明有错误
+	 * 用在论坛从下线状态切换到上线状态
 	 * @return
 	 */
-	public int saveForumTitleCache()
+	public int renewForumTitleCache()
 	{
 		if(ForumCache.forumCache==null||ForumCache.forumCache.forumTitle==null)
 		{
@@ -143,37 +161,32 @@ public class ForumCache {
 		
 		if(startup==null)
 		{
-			startup=new Startup();
-			
-			startup.setForumTitle(new ArrayList<String>());
-			
-			for(String key:ForumCache.forumCache.forumTitle.keySet())
-			{
-				startup.getForumTitle().add(key);
-			}
-			
-			MongoDBConnector.datastore.save(startup);
-			
-			return 0;
+			return -2;
 		}
 		
+		//缓存重建
+		this.forumTitle.clear();
+		
+		ForumTitle ft=MongoDBConnector.datastore.createQuery(ForumTitle.class).field("BM_ID").equal("root").get();
+		
+		if(ft==null)
+		{
+			return -2;
+		}
+			
+		ft.setSubForumTitle(this.findByOuterKey(ft.getBM_ID()));
+		
+		this.forumTitle.put(ft.getBM_ID(), ft);
+		//缓存重建结束
+		
+		
+		//更新到数据库里
 		Query<Startup> updateQuery = MongoDBConnector.datastore.createQuery(Startup.class).field("BM_ID").equal(startup.getBM_ID());
 		
 		UpdateOperations<Startup> ops=MongoDBConnector.datastore.createUpdateOperations(Startup.class);
 		
-		startup.getForumTitle().clear();
-		
-		for(String key:ForumCache.forumCache.forumTitle.keySet())
-		{
-			if(ForumCache.forumCache.forumTitle.get(key)==null||!ForumCache.forumCache.forumTitle.get(key).getOuterkey().equals("0"))
-			{
-				continue;
-			}
-			
-			startup.getForumTitle().add(key);
-		}
-		
-		ops.set("forumTitle", startup.getForumTitle());
+		//把缓存中的结构存入到数据库中
+		ops.set("forumTitle", this.forumTitle);
 		
 		MongoDBConnector.datastore.update(updateQuery, ops);
 		
@@ -181,46 +194,25 @@ public class ForumCache {
 	}
 	
 	/**
-	 * 从缓存里去掉一个键
-	 * 只能对顶级类ROOT进行下线
-	 * 传入子健, 顶级键下线
-	 * 只有在论坛管理页面进行上下线后, 才会生效
-	 * @param key
-	 * @return 被删除的顶级KEY
-	 */
-	public String removeRootKey(String key)
-	{
-		String keytmp=this.goBackToRootForumTitle(key);
-		
-		ForumCache.getCache().forumTitle.remove(keytmp);
-		
-		ForumCache.getCache().saveForumTitleCache();
-		
-		return keytmp;
-	}
-	
-	/**
-	 * 加入一个键
-	 * 只能对顶级类ROOT进行上线
-	 * 只有在论坛管理页面进行上下线后, 才会生效
-	 * @param key
-	 * @param ft
+	 * 用于集群调用的时候,不需要把结构重新写入到数据库中
+	 * 只是从数据库内把结构读出来
 	 * @return
 	 */
-	public int putRootKey(String key,ForumTitle ft)
+	public int readForumTitleFromCache()
 	{
-		if(ft==null||!ft.getOuterkey().equals("0"))
+		ForumTitle ft=MongoDBConnector.datastore.createQuery(ForumTitle.class).field("BM_ID").equal("root").get();
+		
+		if(ft==null)
 		{
-			return -1;
+			return -2;
 		}
 		
-		ForumCache.getCache().forumTitle.put(key,ft);
+		ft.setSubForumTitle(this.findByOuterKey(ft.getBM_ID()));
 		
-		ForumCache.getCache().saveForumTitleCache();
+		this.forumTitle.put(ft.getBM_ID(), ft);
 		
 		return 0;
 	}
-	
 	
 	/**
 	 * 回溯到头
@@ -240,7 +232,7 @@ public class ForumCache {
 	}
 	
 	/**
-	 * 从根节点找起, 找到所有末端的叶子节点
+	 * 从这个节点找起, 找到所有末端的叶子节点
 	 * @param BMID
 	 * @return
 	 */

@@ -1,6 +1,8 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,7 @@ import model.Background;
 import model.ForumTitle;
 import model.Page;
 import model.User;
-import startup.ForumCache;
+import startup.MongoDBConnector;
 
 @Service
 public class ForumTitleService {
@@ -169,22 +171,39 @@ public class ForumTitleService {
 	
 	/**
 	 * start to get forum
-	 * 这个方法用于在获取论坛的时候, 和缓存内的数据对比, 对照哪个是上线的或者没上线的
+	 * 这个方法用于在获取论坛的时候,修改论坛结构,但是不修改cache内容.
 	 * @param BMID
 	 * @return
 	 */
-	public ForumTitle findFullForumTitleByBMID(String BMID)
+	public ForumTitle findFullForumTitleByBMID()
 	{
-		ForumTitle reft= this.forumTitleDao.findByBMID(BMID);
+		ForumTitle reft= this.forumTitleDao.findByBMID("root");
 		
 		if(reft!=null)
 		{
-			reft.setSubForumTitle(this.forumTitleDao.findByOuterKey(reft.getBM_ID()));
+			reft.setSubForumTitle(this.findByOuterKey(reft.getBM_ID()));
 		}
 		
 		return reft;
 	}
 	
+	private List<ForumTitle> findByOuterKey(String outerkey)
+	{
+		List<ForumTitle> tmp=MongoDBConnector.datastore.createQuery(ForumTitle.class).field("outerkey").equal(outerkey).order("-order").asList();
+		
+		//如果没有查询到任何数据则返回一个空LIST
+		if(tmp==null)
+		{
+			return new ArrayList<ForumTitle>();
+		}
+		
+		for(ForumTitle ft:tmp)
+		{			
+			ft.setSubForumTitle(this.findByOuterKey(ft.getBM_ID()));
+		}
+		
+		return tmp;
+	}
 	
 	/**
 	 * 为分论坛添加一个管理员
@@ -243,7 +262,6 @@ public class ForumTitleService {
 	 * 真实删除一个节点
 	 * 首先, 它不能再包含任何帖子, 必须是个已经被移动过的空板块
 	 * 其次, 它不能包含其他板块, 必须是个空母块
-	 * 再次, 必须根处于下线状态, 强制下线, 拦截器中会拦截处于离线状态论坛的提交
 	 * 删除
 	 * 重建, 对本论坛进行缓存重建
 	 * @param key 某个节点的BMID
@@ -268,20 +286,8 @@ public class ForumTitleService {
 			return -2;
 		}
 		
-		//强制下线
-		String topkey=ForumCache.getCache().removeRootKey(key);
-		
 		//删除
 		this.forumTitleDao.realDelBMID(key);
-		
-		//重新上线
-		ForumTitle topFT=this.findFullForumTitleByBMID(topkey);
-		
-		//排除顶级KEY被删除的情况
-		if(topFT!=null)
-		{
-			ForumCache.getCache().putRootKey(topkey, topFT);
-		}
 		
 		return 0;
 	}

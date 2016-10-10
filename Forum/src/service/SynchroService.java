@@ -12,7 +12,6 @@ import dao.SynchroDao;
 import model.Page;
 import model.Synchro;
 import model.TempSynCheckKey;
-import startup.ForumCache;
 import tools.Tools;
 
 @Service
@@ -75,9 +74,14 @@ public class SynchroService {
 	 */
 	public int renewSynKeyAndRelord()
 	{
-		String key=this.synchroDao.saveOrUpdateTempSynCheckKey();
-		
 		List<Synchro> list=this.synchroDao.find();
+		
+		if(list==null)
+		{
+			return 0;
+		}
+		
+		String key=this.synchroDao.saveOrUpdateTempSynCheckKey();
 		
 		for(Synchro syn:list)
 		{
@@ -95,11 +99,11 @@ public class SynchroService {
 	}
 	
 	/**
-	 * 触发论坛结构重建
+	 * 触发论坛结构重建,和上下线的锁
 	 * @param timing
 	 * @return
 	 */
-	public int relordForumTitleTriger(String key)
+	public int relordForumTrigerCheck(String key)
 	{
 		//随机key对应
 		TempSynCheckKey tsck=this.synchroDao.findTempSynCheckKey();
@@ -118,9 +122,6 @@ public class SynchroService {
 		{
 			return -2;
 		}
-		
-		//重建缓存
-		ForumCache.getCache().reBuildForumTitleCache();
 		
 		return 0;
 	}
