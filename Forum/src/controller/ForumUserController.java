@@ -254,6 +254,38 @@ public class ForumUserController {
 	}
 	
 	/**
+	 * index -> next step / block -> view a answer -> view the topic
+	 * 通过答案,逆向查找问题的根贴
+	 * @param request
+	 * @param topickey
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping("/answer")
+	public String viewAnswerToTopic(HttpServletRequest request,@RequestParam(value="key", required=false) String key,@RequestParam(value="page", required=false)Integer page)
+	{
+		ForumContent fc=this.forumContentService.getForumAnswerToTopicByBMID(key);
+		
+		if(fc==null)
+		{
+			return "error/error";
+		}
+		
+		ForumTitle ft=ForumCache.getCache().forumTitle.get(fc.getOuterkey());
+		
+		if(ft==null)
+		{
+			return "error/error";
+		}
+		
+		request.setAttribute("ft", ft);
+		request.setAttribute("fc", fc);
+		request.setAttribute("page", this.forumContentService.getForumContentListAsc(fc.getBM_ID(), page));
+		
+		return "view";
+	}
+	
+	/**
 	 * index -> next step / block -> view a topic -> add a new reply (not quick reply)
 	 * @param request
 	 * @param topickey

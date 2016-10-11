@@ -227,6 +227,29 @@ public class ForumContentService {
 	}
 	
 	/**
+	 * 从答案逆向查找这个问题的根贴
+	 * @param bmid
+	 * @return
+	 */
+	public ForumContent getForumAnswerToTopicByBMID(String bmid)
+	{
+		ForumContent fc=this.forumContentDao.findByBMID(bmid);
+		
+		if(fc==null)
+		{
+			return null;
+		}
+		
+		while(fc.getLayer()!=0)
+		{
+			fc=this.forumContentDao.findByBMID(fc.getOuterkey());
+		}
+		
+		return fc;
+	}
+	
+	
+	/**
 	 * 修改内容
 	 * 超过十分钟则添加
 	 * @param bmid

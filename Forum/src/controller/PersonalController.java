@@ -42,6 +42,11 @@ public class PersonalController {
 		return "redirect:/personal/index";
 	}
 	
+	/**
+	 * 用户发布的主题
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/mytopic")
 	public String myTopic(HttpServletRequest request)
 	{
@@ -52,14 +57,19 @@ public class PersonalController {
 		return "personal/mytopic";
 	}
 	
+	/**
+	 * 用户的回答
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/mycontent")
 	public String myContent(HttpServletRequest request)
 	{
 		User user=(User)request.getSession().getAttribute("mem");
 		
-		request.setAttribute("topicpage", this.personalService.findUserTopic(user.getBM_ID(), 1));
+		request.setAttribute("answerpage", this.personalService.findUserAnswer(user.getBM_ID(), 1));
 		
-		return "personal/mycontent";
+		return "personal/myanswer";
 	}
 	
 	
