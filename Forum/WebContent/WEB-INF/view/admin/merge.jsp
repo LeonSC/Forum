@@ -9,7 +9,7 @@
 	<div class="row">
 		<%@ include file="navi.jsp" %>
 		<div class="col-xs-10" id="container">
-			<form action="${config.rootPath}/admin/forum/merge-submit" method="POST" id="merge-submit-form">
+			<form action="${config.rootPath}/admin/merge-submit" method="POST" id="merge-submit-form">
 			<div class="row">
 				<div class="col-xs-6">
 					<div class="btn-group">
@@ -45,14 +45,14 @@
 					</div>
 					</c:if>
 					<div class="btn-group">
-						<a type="button" class="btn btn-default" href="${config.rootPath}/admin/forum/forumedit?key=${root}">返回</a>
+						<a type="button" class="btn btn-default" href="${config.rootPath}/admin/forumedit?key=${root}">返回</a>
 					</div>
 					<hr/>
 					<ul class="list-group">
 						<c:forEach var="fc" items="${page.list}" varStatus="index">
 						<li class="list-group-item">
 							<div class="checkbox">
-							<label><input type="checkbox" name="titlechecked" value="${fc.BM_ID}">${fc.title}</label><span class="pull-right"><a href="${config.rootPath}/forum/${forumtitle.BM_ID}/view?key=${fc.BM_ID}" class="alink" target="_blank">查看</a></span>
+							<label><input type="checkbox" name="titlechecked" value="${fc.BM_ID}">${fc.title}</label><span class="pull-right"><a href="${config.rootPath}/${forumtitle.BM_ID}/view?key=${fc.BM_ID}" class="alink" target="_blank">查看</a></span>
 							</div>
 						</li>
 						</c:forEach>
@@ -82,7 +82,7 @@ $(document).ready(function(){
             return false;
         }
 		
-		$("#merge-submit-form").attr("action","${config.rootPath}/admin/forum/"+$(this).attr("href"));
+		$("#merge-submit-form").attr("action","${config.rootPath}/admin/"+$(this).attr("href"));
 		$("#merge-submit-form").submit();
 	});
 });
