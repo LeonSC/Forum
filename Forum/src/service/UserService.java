@@ -1,11 +1,17 @@
 package service;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import dao.UserDao;
 import model.Page;
 import model.User;
@@ -133,11 +139,12 @@ public class UserService {
 	}
 	
 	//登录API
-	public User registerUser(String json)
+	public User registerUser(String json) throws JsonParseException, JsonMappingException, IOException
 	{
-		JSONObject jo = JSONObject.parseObject(json);
+		ObjectMapper mapper = new ObjectMapper();
+		HashMap<String,String> map = mapper.readValue(json,new TypeReference<HashMap<String,String>>(){});
 		
-		return this.registerUser(jo.getString("email"), jo.getString("pw"));
+		return this.registerUser(map.get("email"), map.get("pw"));
 	}
 	
 	
