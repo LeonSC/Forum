@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <%@ include file="static/header.jsp" %>
-<link rel="stylesheet" href="//cdn.bootcss.com/medium-editor/5.10.0/css/medium-editor.min.css" type="text/css" media="screen"/>
-<link rel="stylesheet" href="//cdn.bootcss.com/medium-editor/5.10.0/css/themes/bootstrap.min.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="//cdn.bootcss.com/medium-editor/5.22.1/css/medium-editor.min.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="//cdn.bootcss.com/medium-editor/5.22.1/css/themes/bootstrap.min.css" type="text/css" media="screen"/>
 <body>
 <%@ include file="static/titleline.jsp" %>
 <div class="container">
@@ -56,7 +56,7 @@
 	</div>
 </div>
 <%@ include file="static/footer.jsp" %>
-<script src="//cdn.bootcss.com/medium-editor/5.10.0/js/medium-editor.min.js"></script>
+<script src="//cdn.bootcss.com/medium-editor/5.22.1/js/medium-editor.min.js"></script>
 <script type="text/javascript" src="${config.rootPath}/system/plupload.full.min.js"></script>
 <script type="text/javascript" src="${config.rootPath}/system/plupload_zh_CN.js"></script>
 <script type="text/javascript" src="${config.rootPath}/system/qiniu.js"></script>
